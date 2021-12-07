@@ -1,0 +1,55 @@
+{
+    "$schema": "https://raw.githubusercontent.com/Microsoft/azure-pipelines-task-lib/master/tasks.schema.json",
+    "id": "8e2d6b0b-71a0-4740-84c4-ad2c3f229867",
+    "name": "DeploymentPipelines-Unassign",
+    "friendlyName": "Remove a workspace from a deployment pipeline",
+    "description": "Remove a workspace from a Power BI deployment pipeline stage",
+    "helpMarkDown": "",
+    "category": "Utility",
+    "author": "Microsoft",
+    "version": {
+        "Major": 1,
+        "Minor": 0,
+        "Patch": 0
+    },
+    "demands": [
+        "powershell"
+    ],
+    "instanceNameFormat": "Remove the workspace from the $(stageOrder) stage",
+    "inputs": [
+        {
+            "name": "pbiConnection",
+            "type": "connectedService:PowerBI",
+            "label": "Power BI service sonnection",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": ""
+        },
+        {
+            "name": "pipeline",
+            "type": "string",
+            "label": "Pipeline",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": "Enter a pipeline name or ID."
+        },
+        {
+            "name": "stageOrder",
+            "type": "pickList",
+            "label": "Target stage",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": "The pipeline stage the workspace will be removed from.",
+            "options": {
+                "0": "Development",
+                "1": "Test",
+                "2": "Production"
+            }
+        }
+    ],
+    "execution": {
+        "PowerShell3": {
+            "target": "Run.ps1"
+        }
+    }
+}

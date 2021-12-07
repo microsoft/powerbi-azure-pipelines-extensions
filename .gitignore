@@ -1,0 +1,9 @@
+Tasks/*/ps_modules
+Tasks/*/CommonUtilities.ps1
+Tasks/*/icon.png
+
+Common/ps_modules
+
+*.vsix
+
+.vs

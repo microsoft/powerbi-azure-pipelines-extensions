@@ -1,0 +1,42 @@
+{
+    "$schema": "https://raw.githubusercontent.com/Microsoft/azure-pipelines-task-lib/master/tasks.schema.json",
+    "id": "ca3acdf1-d22f-49a2-9276-60c1793c8cf9",
+    "name": "DeploymentPipelines-Delete",
+    "friendlyName": "Delete a deployment pipeline",
+    "description": "Delete a Power BI deployment pipeline",
+    "helpMarkDown": "",
+    "category": "Utility",
+    "author": "Microsoft",
+    "version": {
+        "Major": 1,
+        "Minor": 0,
+        "Patch": 0
+    },
+    "demands": [
+        "powershell"
+    ],
+    "instanceNameFormat": "Delete a pipeline",
+    "inputs": [
+        {
+            "name": "pbiConnection",
+            "type": "connectedService:PowerBI",
+            "label": "Power BI service connection",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": ""
+        },
+        {
+            "name": "pipeline",
+            "type": "string",
+            "label": "Pipeline",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": "Enter a pipeline name or ID."
+        }
+    ],
+    "execution": {
+        "PowerShell3": {
+            "target": "Run.ps1"
+        }
+    }
+}

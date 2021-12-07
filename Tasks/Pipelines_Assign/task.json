@@ -1,0 +1,63 @@
+{
+    "$schema": "https://raw.githubusercontent.com/Microsoft/azure-pipelines-task-lib/master/tasks.schema.json",
+    "id": "28b29874-dcba-4f63-81ba-231865844dc5",
+    "name": "DeploymentPipelines-Assign",
+    "friendlyName": "Assign a workspace to a deployment pipeline",
+    "description": "Assign a workspace to Power BI deployment pipeline stage",
+    "helpMarkDown": "",
+    "category": "Utility",
+    "author": "Microsoft",
+    "version": {
+        "Major": 1,
+        "Minor": 0,
+        "Patch": 0
+    },
+    "demands": [
+        "powershell"
+    ],
+    "instanceNameFormat": "Assign a workspace to a pipeline stage",
+    "inputs": [
+        {
+            "name": "pbiConnection",
+            "type": "connectedService:PowerBI",
+            "label": "Power BI service connection",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": ""
+        },
+        {
+            "name": "pipeline",
+            "type": "string",
+            "label": "Pipeline",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": "Enter a pipeline name or ID."
+        },
+        {
+            "name": "stageOrder",
+            "type": "pickList",
+            "label": "Target stage",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": "",
+            "options": {
+                "0": "Development",
+                "1": "Test",
+                "2": "Production"
+            }
+        },
+        {
+            "name": "workspace",
+            "type": "string",
+            "label": "Workspace",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": "Enter a workspace name or ID."
+        }
+    ],
+    "execution": {
+        "PowerShell3": {
+            "target": "Run.ps1"
+        }
+    }
+}

@@ -1,0 +1,21 @@
+{
+    "dev": {
+        "id": "pbi-automation-tools-dev",
+        "public": "false"
+    },
+    "prod": {
+        "id": "pbi-automation-tools",
+        "public": "true"
+    },
+    "version": "0.0.3",
+    "modules": [
+        {
+            "name": "VstsTaskSdk",
+            "version": "0.11.0"
+        },
+        {
+            "name": "MicrosoftPowerBIMgmt.Profile",
+            "version": "1.2.1077"
+        }
+    ]
+}
