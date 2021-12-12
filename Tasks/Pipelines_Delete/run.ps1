@@ -8,18 +8,22 @@ Import-Module .\ps_modules\MicrosoftPowerBIMgmt.Profile
 
 try {
     Connect-PowerBIService -PbiConnection $pbiConnection
+    
+    $activityId = New-Guid
+    Write-Host "Activity ID: $activityId"
 
     Write-Host "Getting pipeline"
-    $foundPipeline = Get-Pipeline -Pipeline $pipeline
+    $foundPipeline = Get-Pipeline -ActivityId $activityId -Pipeline $pipeline
 
     $url = "pipelines/{0}" -f $foundPipeline.Id
 
     Write-Host "Sending request to Delete pipeline - $url"
 
-    Invoke-PowerBIRestMethod -Url $url -Method Delete
+    Invoke-PowerBIApi -ActivityId $activityId -Url $url -Method Delete
 
     Write-Host "Pipeline deleted successfully"
-} catch {
+}
+catch {
     $err = Resolve-PowerBIError -Last
     Write-Error $err.Message
 }

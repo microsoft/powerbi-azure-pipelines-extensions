@@ -9,10 +9,13 @@ Write-Host "Importing module MicrosoftPowerBIMgmt.Profile"
 Import-Module .\ps_modules\MicrosoftPowerBIMgmt.Profile
 
 try {
-    SigConnect-PowerBIServicebiConnection $pbiConnection
+    Connect-PowerBIService $pbiConnection
+    
+    $activityId = New-Guid
+    Write-Host "Activity ID: $activityId"
 
     Write-Host "Getting workspace $workspace"
-    $foundWorkspace = Get-Workspace -Workspace $workspace
+    $foundWorkspace = Get-Workspace -ActivityId $activityId -Workspace $workspace
 
     $url = "groups/{0}/users" -f $foundWorkspace.Id
     $body = @{ 
@@ -24,7 +27,7 @@ try {
     Write-Host "Sending request to add user to workspace - $url"
     Write-Host "Request Body- $body"
 
-    Invoke-PowerBIRestMethod -Url $url -Method Post -Body $body
+    Invoke-PowerBIApi -ActivityId $activityId -Url $url -Method Post -Body $body
 
     Write-Host "User has been added to workspace successfully"	
 }

@@ -11,11 +11,14 @@ Import-Module .\ps_modules\MicrosoftPowerBIMgmt.Profile
 try {
     Connect-PowerBIService -PbiConnection $pbiConnection
 
+    $activityId = New-Guid
+    Write-Host "Activity ID: $activityId"
+    
     Write-Host "Getting pipeline"
-    $foundPipeline = Get-Pipeline -Pipeline $pipeline
+    $foundPipeline = Get-Pipeline -ActivityId $activityId -Pipeline $pipeline
 
     Write-Host "Getting workspace"
-    $foundWorkspace = Get-Workspace -Workspace $workspace
+    $foundWorkspace = Get-Workspace -ActivityId $activityId -Workspace $workspace
 
     $url = "pipelines/{0}/stages/{1}/assignWorkspace" -f $foundPipeline.Id, $stageOrder
     $body = @{ 
@@ -25,10 +28,11 @@ try {
     Write-Host "Sending request to assign workspace to pipeline - $url"
     Write-Host "Request Body- $body"
 
-    Invoke-PowerBIRestMethod -Url $url -Method Post -Body $body
+    Invoke-PowerBIApi -ActivityId $activityId -Url $url -Method Post -Body $body
 
     Write-Host "Workspace has been assigned to pipeline successfully"
-} catch {
+}
+catch {
     $err = Resolve-PowerBIError -Last
     Write-Error $err.Message
 }

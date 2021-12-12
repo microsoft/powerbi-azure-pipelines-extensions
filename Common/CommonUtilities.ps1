@@ -30,13 +30,29 @@ function Connect-PowerBIService {
 	}
 }
 
+function Invoke-PowerBIApi {
+	param (
+		[Guid] $ActivityId,
+		[string] $Url,
+		[string] $Method,
+		[string] $Body
+	)
+
+	$headers = @{
+		'ActivityId' = $ActivityId
+	}
+
+	return Invoke-PowerBIRestMethod -Url $Url -Method $Method -Headers $headers -Body $Body
+}
+
 function Get-Pipeline {
 	param (
-		[string] $Pipeline
+		[string] $Pipeline,
+		[Guid] $ActivityId
 	)
 
 	# Get all pipelines
-	$pipelines = (Invoke-PowerBIRestMethod -Url "pipelines" -Method Get | ConvertFrom-Json).value
+	$pipelines = (Invoke-PowerBIApi -ActivityId $ActivityId -Url "pipelines" -Method Get | ConvertFrom-Json).value
 
 	# Try to find the pipeline by display name
 	$foundPipeline = $pipelines | Where-Object { $_.DisplayName -eq $Pipeline }
@@ -55,11 +71,12 @@ function Get-Pipeline {
 
 function Get-Workspace {
 	param (
-		[string] $Workspace
+		[string] $Workspace,
+		[Guid] $ActivityId
 	)
 
 	# Get all workspaces
-	$workspaces = (Invoke-PowerBIRestMethod -Url "groups" -Method Get | ConvertFrom-Json).value
+	$workspaces = (Invoke-PowerBIApi -ActivityId $ActivityId -Url "groups" -Method Get | ConvertFrom-Json).value
 
 	# Try to find the workspace by display name
 	$foundWorkspace = $workspaces | Where-Object { $_.Name -eq $Workspace }

@@ -9,18 +9,22 @@ Import-Module .\ps_modules\MicrosoftPowerBIMgmt.Profile
 
 try {
     Connect-PowerBIService -PbiConnection $pbiConnection
+    
+    $activityId = New-Guid
+    Write-Host "Activity ID: $activityId"
 
     Write-Host "Getting pipeline"
-    $foundPipeline = Get-Pipeline -Pipeline $pipeline
+    $foundPipeline = Get-Pipeline -ActivityId $activityId -Pipeline $pipeline
 
     $url = "pipelines/{0}/stages/{1}/unassignWorkspace" -f $foundPipeline.Id, $stageOrder
 
     Write-Host "Sending request to assign workspace to pipeline - $url"
 
-    Invoke-PowerBIRestMethod -Url $url -Method Post -Body $body
+    Invoke-PowerBIApi -ActivityId $activityId -Url $url -Method Post -Body $body
 
     Write-Host "Workspace has been removed from pipeline successfully"  
-} catch {
+}
+catch {
     $err = Resolve-PowerBIError -Last
     Write-Error $err.Message
 }

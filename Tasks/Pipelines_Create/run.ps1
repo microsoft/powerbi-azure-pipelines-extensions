@@ -9,6 +9,9 @@ Import-Module .\ps_modules\MicrosoftPowerBIMgmt.Profile
 
 try {
     Connect-PowerBIService -PbiConnection $pbiConnection
+    
+    $activityId = New-Guid
+    Write-Host "Activity ID: $activityId"
 
     $body = @{ 
         displayName = $displayName
@@ -18,10 +21,11 @@ try {
     Write-Host "Sending request to create a new deployment pipeline"
     Write-Host "Request Body- $body"
 
-    $newPipeline = Invoke-PowerBIRestMethod -Url "pipelines"  -Method Post -Body $body | ConvertFrom-Json
+    $newPipeline = Invoke-PowerBIApi -ActivityId $activityId -Url "pipelines" -Method Post -Body $body | ConvertFrom-Json
 
     Write-Host "New deployment pipeline created successfully - Id = $($newPipeline.Id)"
-} catch {
+}
+catch {
     $err = Resolve-PowerBIError -Last
     Write-Error $err.Message
 }

@@ -26,9 +26,12 @@ Import-Module .\ps_modules\MicrosoftPowerBIMgmt.Profile
 
 try {
     Connect-PowerBIService -PbiConnection $pbiConnection
+    
+    $activityId = New-Guid
+    Write-Host "Activity ID: $activityId"
 
     Write-Host "Getting pipeline"
-    $foundPipeline = Get-Pipeline -Pipeline $pipeline
+    $foundPipeline = Get-Pipeline -ActivityId $activityId -Pipeline $pipeline
 
     # Prepare the request body
     switch ($stageOrder) {
@@ -87,7 +90,7 @@ try {
 
     if ($deployType -eq "Selective") {
         $url = "pipelines/{0}/stages/{1}/artifacts" -f $foundPipeline.Id, $body.sourceStageOrder
-        $artifacts = Invoke-PowerBIRestMethod -Url $url -Method Get | ConvertFrom-Json
+        $artifacts = Invoke-PowerBIApi -ActivityId $activityId -Url $url -Method Get | ConvertFrom-Json
 
         $body.dataflows = Proccess-Artifacts -RequestedArtifacts $dataflows -Artifacts $artifacts.dataflows -Type "dataflow"
         $body.datasets = Proccess-Artifacts -RequestedArtifacts $datasets -Artifacts $artifacts.datasets -Type "dataset"
@@ -100,7 +103,7 @@ try {
 
     Write-Host "Sending request to start deployment - $url"
     Write-Host "Request Body- $body"
-    $deployResult = Invoke-PowerBIRestMethod -Url $url -Method Post -Body $body | ConvertFrom-Json
+    $deployResult = Invoke-PowerBIApi -ActivityId $activityId -Url $url -Method Post -Body $body | ConvertFrom-Json
 
     Write-Host "Deployment requested sucessfully, Operation ID: $($deployResult.id)"
 
@@ -111,14 +114,14 @@ try {
 
     # Get the deployment operation details
     $url = "pipelines/{0}/Operations/{1}" -f $foundPipeline.Id, $deployResult.id
-    $operation = Invoke-PowerBIRestMethod -Url $url -Method Get | ConvertFrom-Json    
+    $operation = Invoke-PowerBIApi -ActivityId $activityId -Url $url -Method Get | ConvertFrom-Json    
 
     while ($operation.Status -eq "NotStarted" -or $operation.Status -eq "Executing") {
         Write-Host "Waiting for deployment completion, Status = $($operation.Status)"
         # Sleep for 5 seconds
         Start-Sleep -s 5
 
-        $operation = Invoke-PowerBIRestMethod -Url $url -Method Get | ConvertFrom-Json
+        $operation = Invoke-PowerBIApi -ActivityId $activityId -Url $url -Method Get | ConvertFrom-Json
     }
 
     $message = "Deployment completed with status: {0}, Operation Id: {1}" -f $operation.Status, $deployResult.id
