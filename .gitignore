@@ -3,6 +3,7 @@ Tasks/*/CommonUtilities.ps1
 Tasks/*/icon.png
 
 Common/ps_modules
+Common/temp
 
 *.vsix
 

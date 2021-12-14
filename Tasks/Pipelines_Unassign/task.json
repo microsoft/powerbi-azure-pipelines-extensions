@@ -41,9 +41,9 @@
             "required": true,
             "helpMarkDown": "The pipeline stage the workspace will be removed from.",
             "options": {
-                "0": "Development",
-                "1": "Test",
-                "2": "Production"
+                "Development": "Development",
+                "Test": "Test",
+                "Production": "Production"
             }
         }
     ],

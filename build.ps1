@@ -1,5 +1,6 @@
 Param(
     [switch]$Prod,
+    [switch]$SkipModules,
     [switch]$UpdateVersion,
     [switch]$Package
 )
@@ -9,7 +10,9 @@ $configRaw = Get-Content -Path $configPath -Raw
 $config = $configRaw | ConvertFrom-Json
 
 # install modules
-.\build\InstallRequiredModules.ps1 -Modules $config.modules
+if (!$SkipModules) {
+    .\build\InstallRequiredModules.ps1 -Modules $config.modules
+}
 
 # copy common files to each task
 .\build\CopyCommonFiles.ps1

@@ -14,7 +14,7 @@ try {
     Write-Host "Activity ID: $activityId"
 
     Write-Host "Getting pipeline"
-    $foundPipeline = Get-Pipeline -ActivityId $activityId -ActivityId $activityId -Pipeline $pipeline
+    $foundPipeline = Get-Pipeline -ActivityId $activityId -Pipeline $pipeline
 
     $url = "pipelines/{0}/users" -f $foundPipeline.Id
     $body = @{ 

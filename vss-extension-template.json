@@ -216,6 +216,7 @@
                 "authenticationSchemes": [
                     {
                         "type": "ms.vss-endpoint.endpoint-auth-scheme-service-principal",
+                        "displayName": "Service Principal (recommended)",
                         "inputDescriptors": [
                             {
                                 "id": "authenticationType",
@@ -236,7 +237,7 @@
                     },
                     {
                         "type": "ms.vss-endpoint.endpoint-auth-scheme-basic",
-                        "displayName": "Username Password (no MFA support)"
+                        "displayName": "Username and password (doesn’t support MFA)"
                     }
                 ]
             }

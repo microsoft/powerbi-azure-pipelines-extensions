@@ -16,7 +16,19 @@ try {
     Write-Host "Getting pipeline"
     $foundPipeline = Get-Pipeline -ActivityId $activityId -Pipeline $pipeline
 
-    $url = "pipelines/{0}/stages/{1}/unassignWorkspace" -f $foundPipeline.Id, $stageOrder
+    switch ($stageOrder) {
+        "Development" {
+            $numericStageOrder = 1
+        }
+        "Test" {
+            $numericStageOrder = 0
+        }
+        "Production" {
+            $numericStageOrder = 1
+        }
+    }
+
+    $url = "pipelines/{0}/stages/{1}/unassignWorkspace" -f $foundPipeline.Id, $numericStageOrder
 
     Write-Host "Sending request to assign workspace to pipeline - $url"
 

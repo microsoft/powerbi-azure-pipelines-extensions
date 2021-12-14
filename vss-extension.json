@@ -2,7 +2,7 @@
     "manifestVersion": 1,
     "id": "pbi-automation-tools-dev",
     "publisher": "ms-pbi-api",
-    "version": "0.0.3",
+    "version": "0.0.9",
     "name": "Power BI automation tools (Preview)",
     "description": "Automate release management tasks related to Power BI deployment pipelines",
     "public": false,
@@ -216,6 +216,7 @@
                 "authenticationSchemes": [
                     {
                         "type": "ms.vss-endpoint.endpoint-auth-scheme-service-principal",
+                        "displayName": "Service Principal (recommended)",
                         "inputDescriptors": [
                             {
                                 "id": "authenticationType",
@@ -236,7 +237,7 @@
                     },
                     {
                         "type": "ms.vss-endpoint.endpoint-auth-scheme-basic",
-                        "displayName": "Username Password (no MFA support)"
+                        "displayName": "Username and password (doesn’t support MFA)"
                     }
                 ]
             }

@@ -6,22 +6,24 @@ function Proccess-Artifacts {
     )
 
     $result = @()
-    foreach($artifact in $RequestedArtifacts.Split(";")){
+    foreach ($artifact in $RequestedArtifacts.Split(";")) {
         $artifact = $artifact.Trim()
 
-        $foundArtifact = $Artifacts | Where-Object {$_.artifactDisplayName -eq $artifact}
+        if ($artifact) {
+            $foundArtifact = $Artifacts | Where-Object { $_.artifactDisplayName -eq $artifact }
 
-        if(!$foundArtifact) {
-            $foundArtifact = $Artifacts | Where-Object {$_.artifactId -eq $artifact}
+            if (!$foundArtifact) {
+                $foundArtifact = $Artifacts | Where-Object { $_.artifactId -eq $artifact }
 
-            if(!$foundArtifact) {
-                Write-Error "A $Type with the requested name or Id was not found - ($artifact)" 
+                if (!$foundArtifact) {
+                    Write-Error "A $Type with the requested name or Id was not found - ($artifact)" 
 
-                return
+                    return
+                }
             }
-        }
 
-        $result = $result + @{ sourceId = $foundArtifact.artifactId }
+            $result = $result + @{ sourceId = $foundArtifact.artifactId }
+        }
     }
 
     return $result
