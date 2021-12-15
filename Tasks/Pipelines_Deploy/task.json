@@ -1,0 +1,205 @@
+{
+    "$schema": "https://raw.githubusercontent.com/Microsoft/azure-pipelines-task-lib/master/tasks.schema.json",
+    "id": "387b9cad-cfe0-4502-b150-301f8942e8b7",
+    "name": "DeploymentPipelines-Deploy",
+    "friendlyName": "Deploy content in a deployment pipeline",
+    "description": "Deploy content in a Power BI deployment pipeline",
+    "helpMarkDown": "",
+    "category": "Utility",
+    "author": "Microsoft",
+    "version": {
+        "Major": 1,
+        "Minor": 0,
+        "Patch": 0
+    },
+    "demands": [
+        "powershell"
+    ],
+    "instanceNameFormat": "Deploy content to the $(stageOrder) stage",
+    "groups": [
+        {
+            "displayName": "Deployment options",
+            "name": "deploymentOptionsGroup",
+            "isExpanded": false
+        }
+    ],
+    "inputs": [
+        {
+            "name": "pbiConnection",
+            "type": "connectedService:PowerBI",
+            "label": "Power BI service connection",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": ""
+        },
+        {
+            "name": "pipeline",
+            "type": "string",
+            "label": "Pipeline",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": "Enter a pipeline name or ID."
+        },
+        {
+            "name": "stageOrder",
+            "type": "pickList",
+            "label": "Target stage",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": "",
+            "options": {
+                "Test": "Test",
+                "Production": "Production",
+                "Development (Backward)": "Development (Backward)",
+                "Test (Backward)": "Test (Backward)"
+            }
+        },
+        {
+            "name": "waitForCompletion",
+            "type": "boolean",
+            "label": "Next task starts only after the deployment is completed",
+            "defaultValue": true,
+            "required": true,
+            "helpMarkDown": "Uncheck to skip waiting for the deployment to complete."
+        },
+        {
+            "name": "deployType",
+            "type": "radio",
+            "label": "Artifacts to deploy",
+            "defaultValue": "",
+            "options": {
+                "All": "All",
+                "Selective": "Selective"
+            },
+            "required": true,
+            "helpMarkDown": "When choosing selective deployment at least one of the artifacts must be provided."
+        },
+        {
+            "name": "dataflows",
+            "type": "string",
+            "label": "Dataflows",
+            "defaultValue": "",
+            "required": false,
+            "helpMarkDown": "Name or ID of the dataflow to be deployed. For multiple artifacts split with semicolon (;).",
+            "visibleRule": "deployType = Selective"
+        },
+        {
+            "name": "datasets",
+            "type": "string",
+            "label": "Datasets",
+            "defaultValue": "",
+            "required": false,
+            "helpMarkDown": "Name or ID of the dataset to be deployed. For multiple artifacts split with semicolon (;).",
+            "visibleRule": "deployType = Selective"
+        },
+        {
+            "name": "reports",
+            "type": "string",
+            "label": "Reports",
+            "defaultValue": "",
+            "required": false,
+            "helpMarkDown": "Name or ID of the report to be deployed, for multiple artifacts split with ;",
+            "visibleRule": "deployType = Selective"
+        },
+        {
+            "name": "dahsboards",
+            "type": "string",
+            "label": "Dashboards",
+            "defaultValue": "",
+            "required": false,
+            "helpMarkDown": "Name or ID of the dashboard to be deployed, for multiple artifacts split with ;",
+            "visibleRule": "deployType = Selective"
+        },
+        {
+            "name": "createNewWS",
+            "type": "boolean",
+            "label": "Create new workspace if needed?",
+            "defaultValue": true,
+            "required": true,
+            "helpMarkDown": "When deploying into a stage without an assigned workspace, this name will be used to create the workspace. If the stage has an assigned workspace, this name will be ignored."
+        },
+        {
+            "name": "newWsName",
+            "type": "string",
+            "label": "New workspace name",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": "",
+            "visibleRule": "createNewWS = true"
+        },
+        {
+            "name": "capacity",
+            "type": "string",
+            "label": "Capacity",
+            "defaultValue": "",
+            "required": false,
+            "helpMarkDown": "When empty the source stage capacity will be used if possible. If the source stage capacity can't be used, another capacity the user has access to will be used.",
+            "visibleRule": "createNewWS = true"
+        },
+        {
+            "name": "allowCreateArtifact",
+            "type": "boolean",
+            "label": "Allow the deployment to create new artifacts in the target workspace.",
+            "defaultValue": true,
+            "required": true,
+            "helpMarkDown": ""
+        },
+        {
+            "name": "allowOverwriteArtifact",
+            "type": "boolean",
+            "label": "Allow the deployment to overwrite existing artifacts in the target workspace.",
+            "defaultValue": true,
+            "required": true,
+            "helpMarkDown": ""
+        },
+        {
+            "name": "updateApp",
+            "type": "boolean",
+            "label": "Update the app in the target workspace.",
+            "defaultValue": false,
+            "required": true,
+            "helpMarkDown": ""
+        },
+        {
+            "name": "allowOverwriteTargetArtifactLabel",
+            "type": "boolean",
+            "label": "Allow the deployment to change the artifact's information protection label in the target workspace.",
+            "defaultValue": false,
+            "required": true,
+            "helpMarkDown": "",
+            "groupName": "deploymentOptionsGroup"
+        },
+        {
+            "name": "allowPurgeData",
+            "type": "boolean",
+            "label": "Allow the deployment to delete data from the dataset in the target workspace.",
+            "defaultValue": false,
+            "required": true,
+            "helpMarkDown": "",
+            "groupName": "deploymentOptionsGroup"
+        },
+        {
+            "name": "allowSkipTilesWithMissingPrerequisites",
+            "type": "boolean",
+            "label": "Allow the deployment not to copy tiles that are missing their dataset or report in target workspace.",
+            "defaultValue": false,
+            "required": true,
+            "helpMarkDown": "",
+            "groupName": "deploymentOptionsGroup"
+        },
+        {
+            "name": "allowTakeOver",
+            "type": "boolean",
+            "label": "Allow the deployment to change ownership of paginated reports in the target workspace.",
+            "defaultValue": false,
+            "required": true,
+            "helpMarkDown": "",
+            "groupName": "deploymentOptionsGroup"
+        }
+    ],
+    "execution": {
+        "PowerShell3": {
+            "target": "Run.ps1"
+        }
+    }
+}

@@ -1,0 +1,64 @@
+{
+    "$schema": "https://raw.githubusercontent.com/Microsoft/azure-pipelines-task-lib/master/tasks.schema.json",
+    "id": "8e5938ef-e118-40d8-8051-5b8569fe0bf3",
+    "name": "Workspaces-AddUser",
+    "friendlyName": "Add a user to a workspace",
+    "description": "Add a user to a Power BI workspace",
+    "helpMarkDown": "",
+    "category": "Utility",
+    "author": "Microsoft",
+    "version": {
+        "Major": 1,
+        "Minor": 0,
+        "Patch": 0
+    },
+    "demands": [
+        "powershell"
+    ],
+    "instanceNameFormat": "Add a user to a workspace",
+    "inputs": [
+        {
+            "name": "pbiConnection",
+            "type": "connectedService:PowerBI",
+            "label": "Power BI service connection",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": ""
+        },
+        {
+            "name": "workspace",
+            "type": "string",
+            "label": "Workspace",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": "Enter a workspace name or ID."
+        },
+        {
+            "name": "userUpn",
+            "type": "string",
+            "label": "User email",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": "User to be added to the workspace."
+        },
+        {
+            "name": "permission",
+            "type": "pickList",
+            "label": "Permission",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": "",
+            "options": {
+                "Admin": "Admin",
+                "Member": "Member",
+                "Contributor": "Contributor",
+                "Viewer": "Viewer"
+            }
+        }
+    ],
+    "execution": {
+        "PowerShell3": {
+            "target": "Run.ps1"
+        }
+    }
+}

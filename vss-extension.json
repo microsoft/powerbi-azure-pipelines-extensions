@@ -1,0 +1,269 @@
+{
+    "manifestVersion": 1,
+    "id": "pbi-automation-tools-dev",
+    "publisher": "ms-pbi-api",
+    "version": "0.0.9",
+    "name": "Power BI automation tools (Preview)",
+    "description": "Automate release management tasks related to Power BI deployment pipelines",
+    "public": false,
+    "targets": [
+        {
+            "id": "Microsoft.VisualStudio.Services"
+        }
+    ],
+    "categories": [
+        "Azure Pipelines"
+    ],
+    "tags": [
+        "Deployment Pipelines",
+        "Power BI",
+        "release",
+        "dataset",
+        "PBIX"
+    ],
+    "branding": {
+        "color": "#F3F2F1",
+        "theme": "light"
+    },
+    "icons": {
+        "default": "Icons/icon.png"
+    },
+    "screenshots": [
+        {
+            "path": "Screenshots/Tasks.png"
+        }
+    ],
+    "content": {
+        "details": {
+            "path": "overview.md"
+        },
+        "license": {
+            "path": "LICENSE.md"
+        }
+    },
+    "links": {
+        "getstarted": {
+            "uri": "https://docs.microsoft.com/power-bi/create-reports/deployment-pipelines-automation#use-the-power-bi-automation-tool-extension"
+        },
+        "repository": {
+            "uri": "https://github.com/microsoft/powerbi-azure-pipelines-extensions"
+        },
+        "issues": {
+            "uri": "https://github.com/microsoft/powerbi-azure-pipelines-extensions/issues"
+        }
+    },
+    "repository": {
+        "type": "git",
+        "uri": "https://github.com/microsoft/powerbi-azure-pipelines-extensions/tree/main"
+    },
+    "contributions": [
+        {
+            "id": "Pipelines_Deploy",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "Tasks/Pipelines_Deploy"
+            }
+        },
+        {
+            "id": "Pipelines_Create",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "Tasks/Pipelines_Create"
+            }
+        },
+        {
+            "id": "Pipelines_Delete",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "Tasks/Pipelines_Delete"
+            }
+        },
+        {
+            "id": "Pipelines_Assign",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "Tasks/Pipelines_Assign"
+            }
+        },
+        {
+            "id": "Pipelines_Unassign",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "Tasks/Pipelines_Unassign"
+            }
+        },
+        {
+            "id": "Pipelines_AddUser",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "Tasks/Pipelines_AddUser"
+            }
+        },
+        {
+            "id": "Workspaces_AddUser",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "Tasks/Workspaces_AddUser"
+            }
+        },
+        {
+            "id": "powerbi-service-endpoint",
+            "description": "Service endpoint for Power BI",
+            "type": "ms.vss-endpoint.service-endpoint-type",
+            "icons": {
+                "default": "Icons/icon.png"
+            },
+            "targets": [
+                "ms.vss-endpoint.endpoint-types"
+            ],
+            "properties": {
+                "name": "PowerBI",
+                "displayName": "Power BI",
+                "inputDescriptors": [
+                    {
+                        "id": "Environment",
+                        "name": "Environment",
+                        "description": "Environment",
+                        "inputMode": "combo",
+                        "validation": {
+                            "isRequired": true
+                        },
+                        "values": {
+                            "inputId": "Environments",
+                            "defaultValue": "Public",
+                            "possibleValues": [
+                                {
+                                    "displayValue": "Public",
+                                    "value": "Public"
+                                },
+                                {
+                                    "displayValue": "US Government",
+                                    "value": "USGov"
+                                },
+                                {
+                                    "displayValue": "US Government - High",
+                                    "value": "USGovHigh"
+                                },
+                                {
+                                    "displayValue": "US Government - DoD",
+                                    "value": "USGovMil"
+                                },
+                                {
+                                    "displayValue": "Germany",
+                                    "value": "Germany"
+                                },
+                                {
+                                    "displayValue": "China",
+                                    "value": "China"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "url": {
+                    "isVisible": "false",
+                    "dependsOn": {
+                        "input": "Environment",
+                        "map": [
+                            {
+                                "key": "Public",
+                                "value": "https://api.powerbi.com"
+                            },
+                            {
+                                "key": "USGov",
+                                "value": "https://api.powerbigov.us"
+                            },
+                            {
+                                "key": "USGovHigh",
+                                "value": "https://api.high.powerbigov.us"
+                            },
+                            {
+                                "key": "USGovMil",
+                                "value": "https://api.mil.powerbigov.us"
+                            },
+                            {
+                                "key": "Germany",
+                                "value": "https://api.powerbi.de"
+                            },
+                            {
+                                "key": "China",
+                                "value": "https://api.powerbi.cn"
+                            }
+                        ]
+                    }
+                },
+                "authenticationSchemes": [
+                    {
+                        "type": "ms.vss-endpoint.endpoint-auth-scheme-service-principal",
+                        "displayName": "Service Principal (recommended)",
+                        "inputDescriptors": [
+                            {
+                                "id": "authenticationType",
+                                "name": "Authentication type",
+                                "inputMode": "RadioButtons",
+                                "values": {
+                                    "inputId": "authenticationType",
+                                    "defaultValue": "spnKey",
+                                    "isDisabled": true,
+                                    "possibleValues": [
+                                        {
+                                            "value": "spnKey"
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "type": "ms.vss-endpoint.endpoint-auth-scheme-basic",
+                        "displayName": "Username and password (doesn’t support MFA)"
+                    }
+                ]
+            }
+        }
+    ],
+    "files": [
+        {
+            "path": "Tasks/Pipelines_Deploy"
+        },
+        {
+            "path": "Tasks/Pipelines_Create"
+        },
+        {
+            "path": "Tasks/Pipelines_Delete"
+        },
+        {
+            "path": "Tasks/Pipelines_Assign"
+        },
+        {
+            "path": "Tasks/Pipelines_Unassign"
+        },
+        {
+            "path": "Tasks/Pipelines_AddUser"
+        },
+        {
+            "path": "Tasks/Workspaces_AddUser"
+        }
+    ]
+}

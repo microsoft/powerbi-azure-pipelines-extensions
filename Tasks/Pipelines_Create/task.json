@@ -1,0 +1,50 @@
+{
+    "$schema": "https://raw.githubusercontent.com/Microsoft/azure-pipelines-task-lib/master/tasks.schema.json",
+    "id": "ffac4d1b-1421-404e-9db2-f454303c7d6b",
+    "name": "DeploymentPipelines-Create",
+    "friendlyName": "Create a new deployment pipeline",
+    "description": "Create a new Power BI deployment pipeline",
+    "helpMarkDown": "",
+    "category": "Utility",
+    "author": "Microsoft",
+    "version": {
+        "Major": 1,
+        "Minor": 0,
+        "Patch": 0
+    },
+    "demands": [
+        "powershell"
+    ],
+    "instanceNameFormat": "Create a new pipeline",
+    "inputs": [
+        {
+            "name": "pbiConnection",
+            "type": "connectedService:PowerBI",
+            "label": "Power BI service connection",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": ""
+        },
+        {
+            "name": "displayName",
+            "type": "string",
+            "label": "Display name",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": ""
+        },
+        {
+            "name": "description",
+            "type": "string",
+            "label": "Description",
+            "defaultValue": "",
+            "required": false,
+            "helpMarkDown": ""
+        }
+    ],
+    "execution": {
+        "PowerShell3": {
+            "target": "Run.ps1"
+        }
+    }
+}
