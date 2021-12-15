@@ -1,0 +1,50 @@
+{
+    "$schema": "https://raw.githubusercontent.com/Microsoft/azure-pipelines-task-lib/master/tasks.schema.json",
+    "id": "b8d7b861-415f-4624-9b09-1672e5e88992",
+    "name": "DeploymentPipelines-AddUser",
+    "friendlyName": "Add a user to a deployment pipeline",
+    "description": "Add a user to a Power BI deployment pipeline",
+    "helpMarkDown": "",
+    "category": "Utility",
+    "author": "Microsoft",
+    "version": {
+        "Major": 1,
+        "Minor": 0,
+        "Patch": 0
+    },
+    "demands": [
+        "powershell"
+    ],
+    "instanceNameFormat": "Add a user to a pipeline",
+    "inputs": [
+        {
+            "name": "pbiConnection",
+            "type": "connectedService:PowerBI",
+            "label": "Power BI service connection",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": ""
+        },
+        {
+            "name": "pipeline",
+            "type": "string",
+            "label": "Pipeline",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": "Enter a pipeline name or ID."
+        },
+        {
+            "name": "userUpn",
+            "type": "string",
+            "label": "User email",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": "User to be added to the pipeline."
+        }
+    ],
+    "execution": {
+        "PowerShell3": {
+            "target": "Run.ps1"
+        }
+    }
+}
