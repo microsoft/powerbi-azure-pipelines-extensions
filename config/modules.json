@@ -1,13 +1,5 @@
 {
-    "dev": {
-        "id": "pbi-automation-tools-dev",
-        "public": "false"
-    },
-    "prod": {
-        "id": "pbi-automation-tools",
-        "public": "true"
-    },
-    "version": "0.0.9",
+    "$schema": "./schemas/modules-schema.json",
     "modules": [
         {
             "name": "VstsTaskSdk",

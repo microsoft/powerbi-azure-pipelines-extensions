@@ -1,42 +1,23 @@
 Param(
     [switch]$Prod,
     [switch]$SkipModules,
-    [switch]$UpdateVersion,
-    [switch]$Package
+    [switch]$UpdateVersion
 )
-
-$configPath = "config.json"
-$configRaw = Get-Content -Path $configPath -Raw
-$config = $configRaw | ConvertFrom-Json
 
 # install modules
 if (!$SkipModules) {
-    .\build\InstallRequiredModules.ps1 -Modules $config.modules
+    .\build\InstallRequiredModules.ps1 -ModulesConfigPath .\config\modules.json
 }
 
 # copy common files to each task
 .\build\CopyCommonFiles.ps1
 
-# update extension version in config file
-$version = [version]$config.version
-$increment = if ($UpdateVersion) { 1 } else { 0 }
-$newVersion = "{0}.{1}.{2}" -f $version.Major, $version.Minor, ($version.Build + $increment)
-$configRaw = $configRaw.Replace($config.version, $newVersion)
-Set-Content -Value $configRaw -Path $configPath -NoNewline
-
-# set extension mising properties in extension json (id, version, public)
-$env = if ($Prod) { $config.prod } else { $config.dev }
-
-$extension = Get-Content vss-extension-template.json -raw
-
-$newExtension = $extension.Replace('EXTENSION_ID', $env.id)
-$newExtension = $newExtension.Replace('EXTENSION_VERSION', $newVersion)
-$newExtension = $newExtension.Replace('"EXTENSION_PUBLIC"', $env.public)
-
-# create extesnion json file
-Set-Content -Value $newExtension -Path vss-extension.json -NoNewline
+if ($Prod) { 
+    $ovverides = 'config\prod.json' 
+}
+else {
+    $ovverides = 'config\dev.json'
+}
 
 # packge extension
-if ($Package) {
-    tfx extension create --manifest-globs $newExtensionPath
-}
+tfx extension create --overrides-file $ovverides --rev-version $UpdateVersion --output-path vsix

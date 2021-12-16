@@ -1,0 +1,6 @@
+{
+    "$schema": "./schemas/override-schema.json",
+    "id": "pbi-automation-tools-dev",
+    "public": false,
+    "name": "[DEV] Power BI automation tools (Preview)"
+}
