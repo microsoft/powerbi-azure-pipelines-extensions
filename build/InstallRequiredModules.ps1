@@ -1,6 +1,7 @@
 Param(
-    $Modules
+    [string] $ModulesConfigPath
 )
+
 
 $tempModulesPath = ".\Common\temp"
 $modulesPath = ".\Common\ps_modules"
@@ -9,7 +10,10 @@ If (!(test-path $tempModulesPath)) {
     New-Item -Path $tempModulesPath -ItemType Directory -Force
 }
 
-$Modules | Foreach-Object {
+$configRaw = Get-Content -Path $ModulesConfigPath -Raw
+$modules = $configRaw | ConvertFrom-Json
+
+$modules.modules | Foreach-Object {
     Save-Module -Name $_.name -RequiredVersion $_.version -Path $tempModulesPath
 
     $sourcePath = "{0}\{1}\{2}" -f $tempModulesPath, $_.name, $_.version

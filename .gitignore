@@ -5,6 +5,6 @@ Tasks/*/icon.png
 Common/ps_modules
 Common/temp
 
-*.vsix
+vsix
 
 .vs

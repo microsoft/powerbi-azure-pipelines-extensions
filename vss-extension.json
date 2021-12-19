@@ -2,7 +2,7 @@
     "manifestVersion": 1,
     "id": "pbi-automation-tools-dev",
     "publisher": "ms-pbi-api",
-    "version": "0.0.9",
+    "version": "1.0.0",
     "name": "Power BI automation tools (Preview)",
     "description": "Automate release management tasks related to Power BI deployment pipelines",
     "public": false,
@@ -38,7 +38,7 @@
             "path": "overview.md"
         },
         "license": {
-            "path": "LICENSE.md"
+            "path": "LICENSE"
         }
     },
     "links": {
@@ -47,6 +47,9 @@
         },
         "repository": {
             "uri": "https://github.com/microsoft/powerbi-azure-pipelines-extensions"
+        },
+        "support": {
+            "uri": "https://github.com/microsoft/powerbi-azure-pipelines-extensions/issues"
         },
         "issues": {
             "uri": "https://github.com/microsoft/powerbi-azure-pipelines-extensions/issues"
