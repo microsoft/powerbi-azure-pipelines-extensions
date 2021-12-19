@@ -38,7 +38,7 @@
             "path": "overview.md"
         },
         "license": {
-            "path": "LICENSE.md"
+            "path": "LICENSE"
         }
     },
     "links": {
@@ -47,6 +47,9 @@
         },
         "repository": {
             "uri": "https://github.com/microsoft/powerbi-azure-pipelines-extensions"
+        },
+        "support": {
+            "uri": "https://github.com/microsoft/powerbi-azure-pipelines-extensions/issues"
         },
         "issues": {
             "uri": "https://github.com/microsoft/powerbi-azure-pipelines-extensions/issues"
