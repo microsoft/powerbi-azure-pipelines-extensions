@@ -7,15 +7,14 @@
 </tr></table>
 
 # Power BI automation tools for Azure DevOps
-The Power BI [deployment pipelines](https://docs.microsoft.com/power-bi/create-reports/deployment-pipelines-overview) tools enables BI teams to build an efficient and reusable release process for their Power BI content. You can leverage the tasks in this Azure DevOps extension to integrate Power BI into your organization's automation process. Here are a few examples of what can be done using the APIs:
+The Power BI [deployment pipelines](https://docs.microsoft.com/power-bi/create-reports/deployment-pipelines-overview) tool enables BI teams to build an efficient and reusable release process for their Power BI content. You can leverage the tasks in this Azure DevOps extension to integrate Power BI into your organization's automation process. Here are a few examples of what can be done using these extension:
 - Manage Power BI pipelines from start to finish, including creating a pipeline, assigning a workspace to any stage, deploying and deleting the pipeline.
 - Assign users to a pipeline.
 - Assign users to a workspace.
 - Deploy all/selected items in a Power BI pipeline to the next stage.
-not 
 
-## build
-You can use the  [build.ps1](./build.ps1) script to build and package the extesnion.
+## Build
+You can use the [build.ps1](./build.ps1) script to build and package the extesnion.
 
 If you are forking this Repo make sure to update the [dev.json](./config/dev.json).
 
@@ -23,7 +22,7 @@ If you are forking this Repo make sure to update the [dev.json](./config/dev.jso
  .\build.ps1
 `
 
-after building for the first time, you can use the following to skip installing powrshell modules and reduce build time
+after building for the first time, you can use the following command to skip installing powrshell modules and reduce build time:
 
 `
  .\build.ps1 -SkipModules
