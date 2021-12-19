@@ -1,7 +1,7 @@
-<table style="width: 100%; border-style: none;"><tr>
+<table><tr>
 <td><img src="./Icons/icon.png"/></td>
-<td><strong>Power BI automation tools for Azure DevOps</strong><br />
-<i>Automate release management tasks related to Power BI deployment pipelines</i><br />
+<td><strong>Power BI automation tools for Azure DevOps</strong><br/>
+<i>Automate release management tasks related to Power BI deployment pipelines</i><br/>
 <a href="https://marketplace.visualstudio.com/items?itemName=ms-pbi-api.pbi-automation-tools">Install now!</a>
 </td>
 </tr></table>
