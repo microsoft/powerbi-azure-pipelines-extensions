@@ -19,7 +19,7 @@
     "inputs": [
         {
             "name": "pbiConnection",
-            "type": "connectedService:PowerBI",
+            "type": "connectedService:PowerBIService",
             "label": "Power BI service sonnection",
             "defaultValue": "",
             "required": true,
