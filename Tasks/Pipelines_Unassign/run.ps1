@@ -1,6 +1,6 @@
 $pbiConnection = Get-VstsEndpoint -Name (Get-VstsInput -Name pbiConnection)
 $pipeline = Get-VstsInput -Name pipeline
-$stageOrder = Get-VstsInput -Name stageOrder -AsInt
+$stageOrder = Get-VstsInput -Name stageOrder
 
 . .\CommonUtilities.ps1
 
@@ -18,19 +18,19 @@ try {
 
     switch ($stageOrder) {
         "Development" {
-            $numericStageOrder = 1
-        }
-        "Test" {
             $numericStageOrder = 0
         }
-        "Production" {
+        "Test" {
             $numericStageOrder = 1
+        }
+        "Production" {
+            $numericStageOrder = 2
         }
     }
 
     $url = "pipelines/{0}/stages/{1}/unassignWorkspace" -f $foundPipeline.Id, $numericStageOrder
 
-    Write-Host "Sending request to assign workspace to pipeline - $url"
+    Write-Host "Sending request to unassign workspace from pipeline - $url"
 
     Invoke-PowerBIApi -ActivityId $activityId -Url $url -Method Post -Body $body
 
