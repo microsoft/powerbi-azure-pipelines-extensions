@@ -40,6 +40,7 @@ function Invoke-PowerBIApi {
 
 	$headers = @{
 		'ActivityId' = $ActivityId
+		'User-Agent' = "AzureDevOpsExtension"
 	}
 
 	return Invoke-PowerBIRestMethod -Url $Url -Method $Method -Headers $headers -Body $Body
