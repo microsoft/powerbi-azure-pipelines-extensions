@@ -12,5 +12,5 @@ To get started with deployment pipelines, learn more [here](https://docs.microso
 
  Version | Remarks                               
 ---------|-------------------------------------
- 1.0.1   | Public preview release.             
+ 1.0.2   | Public preview release.             
  
