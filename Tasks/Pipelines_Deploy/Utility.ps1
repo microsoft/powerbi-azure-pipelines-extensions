@@ -21,10 +21,10 @@ function Proccess-Artifacts {
                     return
                 }
             }
-
+            
             $result = $result + @{ sourceId = $foundArtifact.artifactId }
         }
     }
 
-    return $result
+    return (, $result)
 }

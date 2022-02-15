@@ -89,21 +89,25 @@ try {
     }
 
     if ($deployType -eq "Selective") {
-        $url = "pipelines/{0}/stages/{1}/artifacts" -f $foundPipeline.Id, $body.sourceStageOrder
-        $artifacts = Invoke-PowerBIApi -ActivityId $activityId -Url $url -Method Get | ConvertFrom-Json
+        $artifactsUrl = "pipelines/{0}/stages/{1}/artifacts" -f $foundPipeline.Id, $body.sourceStageOrder
+        $artifacts = Invoke-PowerBIApi -ActivityId $activityId -Url $artifactsUrl -Method Get | ConvertFrom-Json
 
         $body.dataflows = Proccess-Artifacts -RequestedArtifacts $dataflows -Artifacts $artifacts.dataflows -Type "dataflow"
         $body.datasets = Proccess-Artifacts -RequestedArtifacts $datasets -Artifacts $artifacts.datasets -Type "dataset"
         $body.reports = Proccess-Artifacts -RequestedArtifacts $reports -Artifacts $artifacts.reports -Type "reports"
         $body.dashboards = Proccess-Artifacts -RequestedArtifacts $dashboards -Artifacts $artifacts.dashboards -Type "dashboard"
+
+        $deployUrl = "pipelines/{0}/Deploy" -f $foundPipeline.Id    
+    }
+    else {
+        $deployUrl = "pipelines/{0}/DeployAll" -f $foundPipeline.Id
     }
 
-    $url = "pipelines/{0}/DeployAll" -f $foundPipeline.Id
     $body = $body | ConvertTo-Json
 
-    Write-Host "Sending request to start deployment - $url"
+    Write-Host "Sending request to start deployment - $deployUrl"
     Write-Host "Request Body- $body"
-    $deployResult = Invoke-PowerBIApi -ActivityId $activityId -Url $url -Method Post -Body $body | ConvertFrom-Json
+    $deployResult = Invoke-PowerBIApi -ActivityId $activityId -Url $deployUrl -Method Post -Body $body | ConvertFrom-Json
 
     Write-Host "Deployment requested sucessfully, Operation ID: $($deployResult.id)"
 
@@ -113,15 +117,15 @@ try {
     }
 
     # Get the deployment operation details
-    $url = "pipelines/{0}/Operations/{1}" -f $foundPipeline.Id, $deployResult.id
-    $operation = Invoke-PowerBIApi -ActivityId $activityId -Url $url -Method Get | ConvertFrom-Json    
+    $operationUrl = "pipelines/{0}/Operations/{1}" -f $foundPipeline.Id, $deployResult.id
+    $operation = Invoke-PowerBIApi -ActivityId $activityId -Url $operationUrl -Method Get | ConvertFrom-Json    
 
     while ($operation.Status -eq "NotStarted" -or $operation.Status -eq "Executing") {
         Write-Host "Waiting for deployment completion, Status = $($operation.Status)"
         # Sleep for 5 seconds
         Start-Sleep -s 5
 
-        $operation = Invoke-PowerBIApi -ActivityId $activityId -Url $url -Method Get | ConvertFrom-Json
+        $operation = Invoke-PowerBIApi -ActivityId $activityId -Url $operationUrl -Method Get | ConvertFrom-Json
     }
 
     $message = "Deployment completed with status: {0}, Operation Id: {1}" -f $operation.Status, $deployResult.id
