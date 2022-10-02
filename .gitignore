@@ -1,6 +1,8 @@
 Tasks/*/ps_modules
-Tasks/*/CommonUtilities.ps1
+Tasks/*/InitTask.ps1
 Tasks/*/icon.png
+
+Tasks/Tests/config
 
 Common/ps_modules
 Common/temp

@@ -9,8 +9,8 @@
     "author": "Microsoft",
     "version": {
         "Major": 1,
-        "Minor": 0,
-        "Patch": 10
+        "Minor": 1,
+        "Patch": 0
     },
     "demands": [
         "powershell"
@@ -81,6 +81,15 @@
             "defaultValue": "",
             "required": false,
             "helpMarkDown": "Name or ID of the dataflow to be deployed. For multiple artifacts split with semicolon (;).",
+            "visibleRule": "deployType = Selective"
+        },
+        {
+            "name": "datamarts",
+            "type": "string",
+            "label": "Datamarts",
+            "defaultValue": "",
+            "required": false,
+            "helpMarkDown": "Name or ID of the datamart to be deployed. For multiple artifacts split with semicolon (;).",
             "visibleRule": "deployType = Selective"
         },
         {

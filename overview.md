@@ -9,8 +9,10 @@ Learn more about using these tasks [here](https://docs.microsoft.com/power-bi/cr
 To get started with deployment pipelines, learn more [here](https://docs.microsoft.com/power-bi/create-reports/deployment-pipelines-get-started).
 
 ## Release Notes
+1.1.0: 
+General Availability release
+- Add datamarts support for "Deploy content" task
+- Better error tracing
 
- Version | Remarks                               
----------|-------------------------------------
- 1.0.2   | Public preview release.             
- 
+1.0.2 
+Public preview release
