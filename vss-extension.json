@@ -2,8 +2,8 @@
     "manifestVersion": 1,
     "id": "pbi-automation-tools-dev",
     "publisher": "ms-pbi-api",
-    "version": "1.0.10",
-    "name": "Power BI automation tools (Preview)",
+    "version": "1.1.0",
+    "name": "Power BI automation tools",
     "description": "Automate release management tasks related to Power BI deployment pipelines",
     "public": false,
     "targets": [
