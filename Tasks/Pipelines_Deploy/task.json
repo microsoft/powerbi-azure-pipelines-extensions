@@ -9,7 +9,7 @@
     "author": "Microsoft",
     "version": {
         "Major": 1,
-        "Minor": 1,
+        "Minor": 2,
         "Patch": 0
     },
     "demands": [
@@ -53,6 +53,14 @@
                 "Development (Backward)": "Development (Backward)",
                 "Test (Backward)": "Test (Backward)"
             }
+        },
+        {
+            "name": "note",
+            "type": "string",
+            "label": "Deployment Note",
+            "defaultValue": "",
+            "required": false,
+            "helpMarkDown": "(Optional) Provide a deployment note. The note will be shown in the pipeline deployment history."
         },
         {
             "name": "waitForCompletion",

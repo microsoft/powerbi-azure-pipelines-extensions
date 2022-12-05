@@ -21,7 +21,7 @@ if ($RunTests) {
         .\RunAllTests.ps1
     }
     catch {
-        throw "Tests Faild"
+        throw "Tests Failed"
     }
     finally {        
         Pop-Location
