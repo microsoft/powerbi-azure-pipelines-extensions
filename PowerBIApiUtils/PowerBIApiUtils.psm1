@@ -343,6 +343,7 @@ function Start-PipelineDeployment {
         [string] $Endpoint,
         [string] $Pipeline,
         [string] $StageOrder,
+        [string] $Note,
         [bool] $WaitForCompletion,
         [string] $DeployType,
         [string] $Dataflows,
@@ -406,6 +407,8 @@ function Start-PipelineDeployment {
             allowSkipTilesWithMissingPrerequisites = $AllowSkipTilesWithMissingPrerequisites
             allowTakeOver                          = $AllowTakeOver
         }
+
+        $body.note = $Note
 
         if ($CreateNewWS) {
             $body.newWorkspace = @{

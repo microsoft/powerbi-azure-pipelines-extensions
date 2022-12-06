@@ -38,7 +38,7 @@ Get-ChildItem -Filter *.ps1 .\TestCases | Foreach-Object {
         Write-Host "Completed running Test: $_"
     }
     catch {
-        Write-Error "Test ($testName) Faild with: $_"
+        Write-Error "Test ($testName) Failed with: $_"
         throw
     }
 }
