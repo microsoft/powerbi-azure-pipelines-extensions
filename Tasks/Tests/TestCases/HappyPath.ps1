@@ -48,7 +48,7 @@ function TestHappyPath {
     Write-Host "Start full deployment to the test stage"
 
     $testWorkspaceName = "$workspaceName [Test]"
-    Start-PipelineDeployment -ActivityId $activityId -Endpoint $endpoint -Pipeline $pipeline -StageOrder "Test"-WaitForCompletion $TRUE -DeployType "All" -CreateNewWS $TRUE -NewWsName $testWorkspaceName -AllowCreateArtifact $TRUE -AllowOverwriteArtifact $TRUE
+    Start-PipelineDeployment -ActivityId $activityId -Endpoint $endpoint -Pipeline $pipeline -StageOrder "Test"-WaitForCompletion $TRUE -DeployType "All" -CreateNewWS $TRUE -NewWsName $testWorkspaceName -AllowCreateArtifact $TRUE -AllowOverwriteArtifact $TRUE -Note "Full deployment to test"
     $stages = (Invoke-PowerBIApi -ActivityId $ActivityId -Endpoint $Endpoint -Url "pipelines/$pipelineId/stages" -Method Get).value
     $testStage = $stages | Where-Object { $_.order -eq 1 }
     if (!$testStage -or !($testStage.WorkspaceId)) {
@@ -62,7 +62,7 @@ function TestHappyPath {
     Write-Host "Start selective deployment to the production stage with dataflow, datamart, dataset, report and dashboard named ($fileName)"
 
     $prodWorkspaceName = "$workspaceName [Production]"
-    Start-PipelineDeployment -ActivityId $activityId -Endpoint $endpoint -Pipeline $pipeline -StageOrder "Production" -WaitForCompletion $TRUE -DeployType "Selective" -Dataflow $fileName -Datamart $fileName -Datasets $fileName -Reports $fileName -Dashboards $fileName -CreateNewWS $TRUE -NewWsName $prodWorkspaceName -AllowCreateArtifact $TRUE -AllowOverwriteArtifact $TRUE 
+    Start-PipelineDeployment -ActivityId $activityId -Endpoint $endpoint -Pipeline $pipeline -StageOrder "Production" -WaitForCompletion $TRUE -DeployType "Selective" -Dataflow $fileName -Datamart $fileName -Datasets $fileName -Reports $fileName -Dashboards $fileName -CreateNewWS $TRUE -NewWsName $prodWorkspaceName -AllowCreateArtifact $TRUE -AllowOverwriteArtifact $TRUE -Note "Selective deployment to production"
     $stages = (Invoke-PowerBIApi -ActivityId $ActivityId -Endpoint $Endpoint -Url "pipelines/$pipelineId/stages" -Method Get).value
     $prodStage = $stages | Where-Object { $_.order -eq 2 }
     if (!$prodStage -or !($prodStage.WorkspaceId)) {

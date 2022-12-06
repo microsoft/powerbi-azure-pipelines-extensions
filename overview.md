@@ -9,6 +9,9 @@ Learn more about using these tasks [here](https://docs.microsoft.com/power-bi/cr
 To get started with deployment pipelines, learn more [here](https://docs.microsoft.com/power-bi/create-reports/deployment-pipelines-get-started).
 
 ## Release Notes
+1.2.0:
+An option to add a deployment note, was added to the "Deploy content in a deployment pipeline" task
+
 1.1.0: 
 General Availability release
 - Add datamarts support for "Deploy content" task

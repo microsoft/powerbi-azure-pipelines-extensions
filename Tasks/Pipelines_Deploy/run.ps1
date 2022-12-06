@@ -1,6 +1,7 @@
 $pbiConnection = Get-VstsEndpoint -Name (Get-VstsInput -Name pbiConnection)
 $pipeline = Get-VstsInput -Name pipeline
 $stageOrder = Get-VstsInput -Name stageOrder
+$note = Get-VstsInput -Name note
 $waitForCompletion = Get-VstsInput -Name waitForCompletion -AsBool
 $deployType = Get-VstsInput -Name deployType
 $dataflows = Get-VstsInput -Name dataflows
@@ -21,4 +22,4 @@ $updateApp = Get-VstsInput -Name updateApp -AsBool
 
 . .\InitTask.ps1
 
-Start-PipelineDeployment -ActivityId $activityId -Endpoint $endpoint -Pipeline $pipeline -StageOrder $stageOrder -WaitForCompletion $waitForCompletion -DeployType $deployType -Dataflows $dataflows -Datamarts $datamarts -Datasets $datasets -Reports $reports -Dashboards $dashboards -CreateNewWS $createNewWS -NewWsName $newWsName -Capacity $capacity -AllowCreateArtifact $allowCreateArtifact -AllowOverwriteArtifact $allowOverwriteArtifact -AllowOverwriteTargetArtifactLabel $allowOverwriteTargetArtifactLabel -AllowPurgeData $allowPurgeData -AllowSkipTilesWithMissingPrerequisites $allowSkipTilesWithMissingPrerequisites -AllowTakeOver $allowTakeOver -UpdateApp $updateApp
+Start-PipelineDeployment -ActivityId $activityId -Endpoint $endpoint -Pipeline $pipeline -StageOrder $stageOrder -Note $note -WaitForCompletion $waitForCompletion -DeployType $deployType -Dataflows $dataflows -Datamarts $datamarts -Datasets $datasets -Reports $reports -Dashboards $dashboards -CreateNewWS $createNewWS -NewWsName $newWsName -Capacity $capacity -AllowCreateArtifact $allowCreateArtifact -AllowOverwriteArtifact $allowOverwriteArtifact -AllowOverwriteTargetArtifactLabel $allowOverwriteTargetArtifactLabel -AllowPurgeData $allowPurgeData -AllowSkipTilesWithMissingPrerequisites $allowSkipTilesWithMissingPrerequisites -AllowTakeOver $allowTakeOver -UpdateApp $updateApp
