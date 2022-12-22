@@ -14,7 +14,7 @@ The Power BI [deployment pipelines](https://docs.microsoft.com/power-bi/create-r
 - Deploy all/selected items in a Power BI pipeline to the next stage.
 
 ## Build
-You can use the [build.ps1](./build.ps1) script to build and package the extesnion.
+If you have tfx-cli installed (If you have npm, you can install tfx-cli using `npm install -g tfx-cli`), you can use the [build.ps1](./build.ps1) script to build and package the extesnion. 
 
 If you are forking this Repo make sure to update the [dev.json](./config/dev.json).
 
