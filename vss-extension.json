@@ -2,7 +2,7 @@
     "manifestVersion": 1,
     "id": "pbi-automation-tools-dev",
     "publisher": "ms-pbi-api",
-    "version": "1.2.0",
+    "version": "1.3.0",
     "name": "Power BI automation tools",
     "description": "Automate release management tasks related to Power BI deployment pipelines",
     "public": false,
@@ -121,6 +121,16 @@
             }
         },
         {
+            "id": "Pipelines_AddGroup",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "Tasks/Pipelines_AddGroup"
+            }
+        },
+        {
             "id": "Workspaces_AddUser",
             "type": "ms.vss-distributed-task.task",
             "targets": [
@@ -128,6 +138,16 @@
             ],
             "properties": {
                 "name": "Tasks/Workspaces_AddUser"
+            }
+        },
+        {
+            "id": "Workspaces_AddGroup",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "Tasks/Workspaces_AddGroup"
             }
         },
         {

@@ -1,0 +1,64 @@
+{
+    "$schema": "https://raw.githubusercontent.com/Microsoft/azure-pipelines-task-lib/master/tasks.schema.json",
+    "id": "8e5938ef-e118-40d8-8051-5b8569fe0bf3",
+    "name": "Workspaces-AddGroup",
+    "friendlyName": "Add a group to a workspace",
+    "description": "Add a group to a Power BI workspace",
+    "helpMarkDown": "",
+    "category": "Utility",
+    "author": "Microsoft",
+    "version": {
+        "Major": 1,
+        "Minor": 1,
+        "Patch": 0
+    },
+    "demands": [
+        "powershell"
+    ],
+    "instanceNameFormat": "Add a group to a workspace",
+    "inputs": [
+        {
+            "name": "pbiConnection",
+            "type": "connectedService:PowerBIService",
+            "label": "Power BI service connection",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": ""
+        },
+        {
+            "name": "workspace",
+            "type": "string",
+            "label": "Workspace",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": "Enter a workspace name or ID."
+        },
+        {
+            "name": "groupId",
+            "type": "string",
+            "label": "Group Id",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": "Group to be added to the workspace."
+        },
+        {
+            "name": "permission",
+            "type": "pickList",
+            "label": "Permission",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": "",
+            "options": {
+                "Admin": "Admin",
+                "Member": "Member",
+                "Contributor": "Contributor",
+                "Viewer": "Viewer"
+            }
+        }
+    ],
+    "execution": {
+        "PowerShell3": {
+            "target": "Run.ps1"
+        }
+    }
+}

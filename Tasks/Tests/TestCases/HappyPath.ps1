@@ -36,6 +36,15 @@ function TestHappyPath {
         throw "Expected to user $userUpn to be pipeline admin. found=($foundUser)"
     }
 
+    Write-Host "Add group ($groupId) to the pipeline"
+
+    Add-GroupToPipeline -ActivityId $activityId -Endpoint $endpoint -Pipeline $pipeline -GroupId $groupId
+    $users = (Invoke-PowerBIApi -ActivityId $ActivityId -Endpoint $Endpoint -Url "pipelines/$pipelineId/users" -Method Get).value
+    $foundUser = $users | Where-Object { $_.Identifier -eq $groupId }
+    if (!$foundUser -or $foundUser.AccessRight -ne "Admin") {
+        throw "Expected to group $groupId to be pipeline admin. found=($foundUser)"
+    }
+
     Write-Host "Assign workspace ($workspaceName) to development stage"
 
     Add-WorkspaceToPipeline -ActivityId $activityId -Endpoint $endpoint -Pipeline $pipeline -StageOrder 0 -Workspace $workspaceName
@@ -58,6 +67,10 @@ function TestHappyPath {
     Write-Host "Add user ($userUpn) to the test workspace"
 
     Add-UserToWorkspace -ActivityId $activityId -Endpoint $endpoint -Workspace $testWorkspaceName -UserUpn $userUpn -Permission "Admin"
+    
+    Write-Host "Add group ($groupId) to the test workspace"
+    
+    Add-GroupToWorkspace -ActivityId $activityId -Endpoint $endpoint -Workspace $testWorkspaceName -GroupId $groupId -Permission "Admin"
 
     Write-Host "Start selective deployment to the production stage with dataflow, datamart, dataset, report and dashboard named ($fileName)"
 

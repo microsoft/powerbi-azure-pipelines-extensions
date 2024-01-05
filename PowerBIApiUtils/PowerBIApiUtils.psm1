@@ -221,6 +221,36 @@ function Add-UserToPipeline {
     }
 }
 
+function Add-GroupToPipeline {
+    param (
+        [Guid] $ActivityId,
+        [string] $Endpoint,
+        [string] $Pipeline,
+        [string] $GroupId
+    )
+
+    try {
+        $foundPipeline = Get-Pipeline -ActivityId $ActivityId -Endpoint $Endpoint -Pipeline $Pipeline
+
+        $url = "pipelines/{0}/users" -f $foundPipeline.Id
+        $body = @{
+            identifier    = $GroupId
+            accessRight   = "Admin"
+            principalType = "Group"
+        } | ConvertTo-Json
+
+        Invoke-PowerBIApi -ActivityId $ActivityId -Endpoint $Endpoint -Url $url -Method Post -Body $body
+
+        Write-Host "Group has been added to pipeline successfully"
+    }
+    catch {
+        $err = Resolve-PowerBIError -Last
+        Write-Error $err.Message
+        
+        throw
+    }
+}
+
 function Add-UserToWorkspace {
     param (
         [Guid] $ActivityId,
@@ -243,6 +273,37 @@ function Add-UserToWorkspace {
         Invoke-PowerBIApi -ActivityId $ActivityId -Endpoint $Endpoint -Url $url -Method Post -Body $body
 
         Write-Host "User has been added to workspace successfully"
+    }
+    catch {
+        $err = Resolve-PowerBIError -Last
+        Write-Error $err.Message
+        
+        throw
+    }
+}
+
+function Add-GroupToWorkspace {
+    param (
+        [Guid] $ActivityId,
+        [string] $Endpoint,
+        [string] $Workspace,
+        [string] $GroupId,
+        [string] $Permission
+    )
+
+    try {
+        $foundWorkspace = Get-Workspace -ActivityId $ActivityId -Endpoint $Endpoint -Workspace $Workspace
+
+        $url = "groups/{0}/users" -f $foundWorkspace.Id
+        $body = @{
+            identifier           = $GroupId
+            groupUserAccessRight = $Permission
+            principalType        = "Group"
+        } | ConvertTo-Json
+
+        Invoke-PowerBIApi -ActivityId $ActivityId -Endpoint $Endpoint -Url $url -Method Post -Body $body
+
+        Write-Host "Group has been added to workspace successfully"
     }
     catch {
         $err = Resolve-PowerBIError -Last
@@ -282,6 +343,7 @@ function Add-WorkspaceToPipeline {
         throw
     }
 }
+
 
 function Remove-WorkspaceFromPipeline {
     param (
