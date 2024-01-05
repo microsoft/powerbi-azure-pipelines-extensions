@@ -1,0 +1,50 @@
+{
+    "$schema": "https://raw.githubusercontent.com/Microsoft/azure-pipelines-task-lib/master/tasks.schema.json",
+    "id": "b8d7b861-415f-4624-9b09-1672e5e88992",
+    "name": "DeploymentPipelines-AddGroup",
+    "friendlyName": "Add a user to a deployment pipeline",
+    "description": "Add a user to a Power BI deployment pipeline",
+    "helpMarkDown": "",
+    "category": "Utility",
+    "author": "Microsoft",
+    "version": {
+        "Major": 1,
+        "Minor": 1,
+        "Patch": 0
+    },
+    "demands": [
+        "powershell"
+    ],
+    "instanceNameFormat": "Add a Group to a pipeline",
+    "inputs": [
+        {
+            "name": "pbiConnection",
+            "type": "connectedService:PowerBIService",
+            "label": "Power BI service connection",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": ""
+        },
+        {
+            "name": "pipeline",
+            "type": "string",
+            "label": "Pipeline",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": "Enter a pipeline name or ID."
+        },
+        {
+            "name": "groupId",
+            "type": "string",
+            "label": "Group Id",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": "Group to be added to the pipeline."
+        }
+    ],
+    "execution": {
+        "PowerShell3": {
+            "target": "Run.ps1"
+        }
+    }
+}

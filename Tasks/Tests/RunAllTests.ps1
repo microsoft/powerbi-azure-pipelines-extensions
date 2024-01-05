@@ -19,6 +19,7 @@ With the following template:
     $workspaceId = "***"
     $fileName = "***"
     $userUpn = "***"
+    $groupId = "***"
 #>
 
 If (!(test-path ".\Config\config.ps1")) {
